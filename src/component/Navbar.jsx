@@ -40,7 +40,7 @@ const Navbar = () => {
           <span className="text-purple-700 italic">CODER</span>
         </div>
         <div>
-          <ul className="hidden md:flex items-center space-x-6 list-none lg:text-xl font-semibold md:text-base text-white">
+          <ul className="hidden md:flex items-center space-x-6 list-none lg:text-xl font-semibold md:text-base text-white cursor-pointer">
             {items.map(({ id, text, to }) => (
               <li key={id}>
                 <Link to={to} smooth={true} duration={500} offset={-70}>
