@@ -13,27 +13,26 @@ const Navbar = () => {
     },
     closed: {
       clipPath: "circle(25px at 43px 37px)",
-       clipPath: "circle(25px at 43px 37px)",
       transition: {type:"spring", duration: 1}
+      
     },
   };
 
   const [menu, setMenu] = useState(false);
 
   const items = [
-    { id: 1, text: "About", to: "about"},
-    { id: 2, text: "Services", to:"services" },
-    { id: 3, text: "Work", to:"work" },
-    { id: 4, text: "Contact", to:"contact"},
+    { id: 1, text: "About", to: "about" },
+    { id: 2, text: "Services", to: "services" },
+    { id: 3, text: "Work", to: "work" },
+    { id: 4, text: "Contact", to: "contact" },
   ];
 
   return (
     <div>
       <motion.div
-      initial={{opacity:0, y:-100}}
-      animate={{opacity:1, y:0}}
-      transition={{duration:0.8}}
-      
+        initial={{ opacity: 0, y: -100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
         className="container mx-auto hidden md:flex justify-between items-center py-6  shadow-[0_4px_6px_-1px_rgba(156,163,175,0.3)]"
       >
         <div className="text-xl lg:text-2xl font-bold flex items-center gap-1">
@@ -44,18 +43,10 @@ const Navbar = () => {
           <ul className="hidden md:flex items-center space-x-6 list-none lg:text-xl font-semibold md:text-base text-white">
             {items.map(({ id, text, to }) => (
               <li key={id}>
-                
-              <Link 
-              to={to}
-              smooth={true}
-              duration={500}
-              offset={-70}
-              
-              >
-              {text}
-              </Link>
-                
-                </li>
+                <Link to={to} smooth={true} duration={500} offset={-70}>
+                  {text}
+                </Link>
+              </li>
             ))}
           </ul>
         </div>
@@ -81,16 +72,9 @@ const Navbar = () => {
                       key={id}
                       className="hover:text-purple-500 duration-200 cursor-pointer"
                     >
-                        
-              <Link 
-              to={to}
-              smooth={true}
-              duration={500}
-              offset={-70}
-              
-              >
-              {text}
-              </Link>
+                      <Link to={to} smooth={true} duration={500} offset={-70}>
+                        {text}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -117,7 +101,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
 
 
 
