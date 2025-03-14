@@ -13,8 +13,8 @@ const Navbar = () => {
     },
     closed: {
       clipPath: "circle(25px at 43px 37px)",
-      transition: "spring",
-      duration: 1,
+       clipPath: "circle(25px at 43px 37px)",
+      transition: {type:"spring", duration: 1}
     },
   };
 
