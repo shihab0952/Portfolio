@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
-
 const projects = [
   {
     id: 1,
@@ -13,7 +12,6 @@ const projects = [
     link: "https://construction-website-rose-two.vercel.app/",
     technologies: ["#React, ", "MUi, ", "framer-motion, ", "Tailwind CSS"],
   },
-
   {
     id: 2,
     title: "Agency Website",
@@ -49,70 +47,97 @@ const projects = [
     title: "E-commerce Website",
     description:
       "A fully responsive e-commerce website with modern UI, dynamic features, and seamless user experience.",
-    image: "e2.png",
+    image: "/e2.png",
     link: "https://shihab0952.github.io/e-commerce/",
     technologies: ["#HTML, ", "CSS, ", "JavaScript"],
   },
 ];
 
 const Work = () => {
-
-  const { ref, inView } = useInView({
+  // Header animation
+  const [headerRef, headerInView] = useInView({
     triggerOnce: true,
-    threshold: 0.2,
+    threshold: 0.1,
+    rootMargin: "-50px 0px",
+  });
+
+  // Description animation
+  const [descRef, descInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+    rootMargin: "-50px 0px",
   });
 
   return (
-    <div 
-    id="work"
-    className="py-12">
+    <div id="work" className="py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.h2
-          ref={ref}
-          initial={{ opacity: 0, y: 100 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.3, duration: 0.5 }}
+          ref={headerRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
           className="text-4xl text-white underline font-bold text-center mb-12"
         >
           My Work
         </motion.h2>
+
+        {/* Description */}
         <motion.p
-          ref={ref}
-          initial={{ opacity: 0, y: 100 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="mb-12 text-gray-400 text-center "
+          ref={descRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={descInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-12 text-gray-400 text-center"
         >
           A collection of my latest projects showcasing my skills in web development and UI/UX design.
         </motion.p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8 ">
-          {projects.map((projects) => (
-            <motion.div
-              ref={ref}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: projects.id * 0.2, duration: 0.5 }}
-              key={projects.id}
-              className="bg-gray-900 shadow shadow-purple-300 rounded-lg overflow-hidden "
-            >
-              <img src={projects.image} className="w-full h-52 object-cover"/>
-              <div className="p-6">
-                <h3 className="text-xl text-white font-semibold mb-2">
-                  {projects.title}
-                </h3>
-                <p className="text-slate-400 mb-4">{projects.description}</p>
-                <h4 className="text-[20px] text-purple-500">
-                  {projects.technologies}
-                </h4>
-                <button
-                  onClick={() => window.open(projects.link, "_blank")}
-                  className=" text-white bg-purple-400 hover:bg-purple-700 px-6 py-3 rounded-full transition duration-300 text-center items-center mx-auto"
-                >
-                  Visit Website
-                </button>
-              </div>
-            </motion.div>
-          ))}
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          {projects.map((project) => {
+            // Create a unique ref for each project
+            const [projectRef, projectInView] = useInView({
+              triggerOnce: true,
+              threshold: 0.1,
+              rootMargin: "-50px 0px",
+            });
+
+            return (
+              <motion.div
+                ref={projectRef}
+                key={project.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={projectInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: project.id * 0.1 }}
+                className="bg-gray-900 shadow shadow-purple-300 rounded-lg overflow-hidden"
+              >
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-auto sm:h-52 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl text-white font-semibold mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-400 mb-4">{project.description}</p>
+                  <h4 className="text-[20px] text-purple-500 mb-4">
+                    {project.technologies}
+                  </h4>
+                  <div className="flex justify-center">
+                    <button
+                      onClick={() => window.open(project.link, "_blank")}
+                      className="text-white bg-purple-400 hover:bg-purple-700 px-6 py-3 rounded-full transition duration-300"
+                      aria-label={`Visit ${project.title} website`}
+                    >
+                      Visit Website
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </div>
