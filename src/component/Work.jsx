@@ -98,7 +98,7 @@ const Work = () => {
           {projects.map((project) => {
             // Create a unique ref for each project
             const [projectRef, projectInView] = useInView({
-              triggerOnce: true,
+              triggerOnce: false, // Allow it to trigger multiple times (up or down)
               threshold: 0.1,
               rootMargin: "-50px 0px",
             });
@@ -109,7 +109,11 @@ const Work = () => {
                 key={project.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={projectInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: project.id * 0.1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: project.id * 0.1,
+                  ease: "easeInOut",
+                }}
                 className="bg-gray-900 shadow shadow-purple-300 rounded-lg overflow-hidden"
               >
                 <img 
